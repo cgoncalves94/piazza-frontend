@@ -1,0 +1,93 @@
+
+/* Styles for the login container */
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles for form groups */
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Styles for labels */
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Styles for email and password inputs */
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Styles for the login button */
+.login-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #5cb85c;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+/* Styles for the login button on hover */
+.login-button:hover {
+    background-color: #4cae4c;
+}
+
+/* Styles for error messages */
+.error-message {
+    color: #d9534f;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+/* Additional styles for welcome and logout container */
+.welcome-logout-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 0 20px;
+}
+
+/* Styles for the welcome message */
+.welcome-message {
+    font-size: 20px;
+    color: #333;
+}
+
+/* Styles for the logout button */
+.logout-button {
+    padding: 10px 20px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+/* Styles for the logout button on hover */
+.logout-button:hover {
+    background-color: #c9302c;
+}
