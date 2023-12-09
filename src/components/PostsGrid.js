@@ -1,21 +1,22 @@
 // Importing necessary dependencies
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp, faThumbsDown, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import '../styles/PostsGrid.css';
 
+import CommentList from './CommentList'; // Import the component
 
 
-const PostsGrid = ({ posts, onLike, onDislike }) => {
-    // Function to return the appropriate like count
-    const getLikeCount = (likes) => {
-        // If likes is an array, return its length; if it's a number, return it directly
-        return Array.isArray(likes) ? likes.length : likes;
-    };
-    const getDislikeCount = (dislikes) => {
-        // If dislikes is an array, return its length; if it's a number, return it directly
-        return Array.isArray(dislikes) ? dislikes.length : dislikes;
-    };
+const PostsGrid = ({
+posts,
+onLike,
+onDislike,
+onToggleCommentModal,
+onToggleComments,
+commentsVisible
+}) => {
+
+
     return (
         <div className="posts-grid">
             {posts.map(post => (
@@ -26,20 +27,27 @@ const PostsGrid = ({ posts, onLike, onDislike }) => {
                     <div className="post-details">
                         <span className="post-topic">{post.topic}</span>
                         <span className={`post-status ${post.status === 'Expired' ? 'expired' : 'live'}`}>{post.status}</span>
-                        {/* Add other details here */}
                     </div>
                     <div className="post-interactions">
                         <button onClick={() => onLike(post._id)} className="like-button">
-                            <FontAwesomeIcon icon={faThumbsUp} /> {getLikeCount(post.likes)}
+                            <FontAwesomeIcon icon={faThumbsUp} /> {post.likes.length}
                         </button>
                         <button onClick={() => onDislike(post._id)} className="dislike-button">
-                            <FontAwesomeIcon icon={faThumbsDown} /> {getDislikeCount(post.dislikes)}
+                            <FontAwesomeIcon icon={faThumbsDown} /> {post.dislikes.length}
+                        </button>
+                        <button onClick={() => onToggleCommentModal(post._id)} className="comment-button">
+                            <FontAwesomeIcon icon={faCommentDots} />
+                        </button>
+                        <button onClick={() => onToggleComments(post._id)} className="view-comments-button">
+                            View ({post.comments.length})
                         </button>
                     </div>
+                    {commentsVisible[post._id] && <CommentList comments={post.comments} />}
                 </div>
             ))}
         </div>
     );
 };
+
 
 export default PostsGrid;

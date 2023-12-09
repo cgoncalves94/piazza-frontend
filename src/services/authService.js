@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = 'http://35.239.57.95/api/users/login';
+// The API URL is different depending on the VM external IP address, make sure to change it
+const API_URL = 'http://104.154.138.6/api/users/login';
 
 const login = async (email, password) => {
     try {
@@ -16,4 +17,4 @@ const login = async (email, password) => {
     }
 };
 
-export { login };
+export default login ;

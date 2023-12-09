@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import LoginForm from './components/LoginForm';
 import PostsGrid from './components/PostsGrid';
+import CommentModal from './components/CommentModal';
 import CustomModal from './components/CustomModal';
-import { login } from './services/authService';
-import { getPosts, likePost, dislikePost } from './services/postService';
+import login from './services/authService';
+import { getPosts, likePost, dislikePost, addComment } from './services/postService';
 
 /**
  * The main component of the application.
@@ -16,6 +17,10 @@ const App = () => {
   const [showModal, setShowModal] = useState(false); // Modal visibility state
   const [modalMessage, setModalMessage] = useState(''); // Modal message state
   const [loginError, setLoginError] = useState(''); // Login error state
+  const [showCommentModals, setShowCommentModals] = useState({});
+  const [commentsVisible, setCommentsVisible] = useState({});
+
+
 
   // Check if user is already logged in
   useEffect(() => {
@@ -35,30 +40,24 @@ const App = () => {
     }
   }, [user]);
 
-  // Check posts expiration periodically
-  useEffect(() => {
-    const intervalId = setInterval(checkPostsExpiration, 60000);
-    return () => clearInterval(intervalId);
-  }, []);
+
 
   // Handle login
   const handleLogin = async (email, password) => {
     try {
       const response = await login(email, password);
       const token = response['auth-token'];
+      const username = response['username']
       if (token) {
-        const loggedInUser = { email, token };
+        const loggedInUser = { email, token, username };
         localStorage.setItem('user', JSON.stringify(loggedInUser));
         setUser(loggedInUser);
         setLoginError('');
         console.log('Login successful', loggedInUser);
       }
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.message) {
-        setLoginError(`Login failed: ${error.response.data.message}`);
-      } else {
-        setLoginError('Login failed: An unexpected error occurred');
-      }
+      const errorMessage = error?.response?.data?.message || 'An unexpected error occurred';
+      setLoginError(`Login failed: ${errorMessage}`);
     }
   };
 
@@ -69,72 +68,91 @@ const App = () => {
     setPosts([]);
   };
 
-  const handleLike = async (postId) => {
-    try {
-      // Make the API call to like the post and get the updated data
-      const response = await likePost(postId, user.token);
-      // Update the state with the new like count returned from the server response
-      if (response && typeof response.likes === 'number') {
-        setPosts(currentPosts => {
-          const updatedPosts = currentPosts.map(post => 
-            post._id === postId ? { ...post, likes: response.likes } : post
-          );
-          return updatedPosts;
-        });
-      } 
-    } catch (error) {
-      // Log the error or set an error state to display
-      console.error('Failed to like the post:', error);
-  
-      // Set an appropriate message based on the error response
-      if (error.response && error.response.data) {
-        setShowModal(true);
-        setModalMessage(error.response.data);
-      }
-    }
-  };
-  
-
-// Handle dislike post - similar changes to handleLike
-const handleDislike = async (postId) => {
+// This function will handle the common post-interaction logic
+const handlePostInteraction = async (interactionType, postId) => {
   try {
-    // Make the API call to dislike the post and get the updated data
-    const response = await dislikePost(postId, user.token);
-    // Update the state with the new like count returned from the server response
-    if (response && typeof response.dislikes === 'number') {
-      setPosts(currentPosts => {
-        const updatedPosts = currentPosts.map(post => 
-          post._id === postId ? { ...post, dislikes: response.dislikes } : post
-        );
-        return updatedPosts;
-      });
-    }  
-  } catch (error) {
-    // Log the error or set an error state to display
-    console.error('Failed to dislike the post:', error);
+    // Perform the like or dislike interaction
+    const interactionResponse = await (interactionType === 'like' 
+      ? likePost(postId, user.token) 
+      : dislikePost(postId, user.token));
 
-    // Set an appropriate message based on the error response
-    if (error.response && error.response.data) {
+    // If the interaction was successful, fetch the updated posts
+    if (interactionResponse && typeof interactionResponse === 'object') {
+      if (('likes' || 'dislikes' in interactionResponse)){
+        const updatedPosts = await getPosts(user.token);
+        setPosts(updatedPosts);
+      }
+    } else if (interactionResponse.message) {
+      // If the post has expired, update the state to reflect this without fetching
       setShowModal(true);
-      setModalMessage(error.response.data);
+      setModalMessage(interactionResponse.message);
     }
+  } catch (error) {
+    console.error(`Failed to ${interactionType} the post:`, error);
+
+
+    // Set the modal message for any error
+    setShowModal(true);
+    setModalMessage(error.response?.data || `Failed to ${interactionType} the post.`);
+    const updatedPosts = await getPosts(user.token);
+    setPosts(updatedPosts);
   }
 };
 
 
-  // Check posts expiration
-  const checkPostsExpiration = () => {
-    const now = new Date();
-    setPosts(currentPosts =>
-      currentPosts.map(post => {
-        const expirationTime = new Date(post.expirationTime);
-        if (expirationTime < now && post.status !== 'Expired') {
-          return { ...post, status: 'Expired' };
-        }
-        return post;
-      })
-    );
-  };
+
+// Now the handlers will be very clean
+const handleLike = (postId) => {
+  handlePostInteraction('like', postId);
+};
+
+const handleDislike = (postId) => {
+  handlePostInteraction('dislike', postId);
+};
+
+  
+  
+
+const handleToggleComments = (postId) => {
+  setCommentsVisible(prev => ({
+    ...prev,
+    [postId]: !prev[postId]
+  }));
+};
+
+const handleToggleCommentModal = (postId) => {
+  setShowCommentModals(prev => ({
+    ...prev,
+    [postId]: !prev[postId]
+  }));
+};
+
+const handleAddComment = async (postId, commentText) => {
+  try {
+    await addComment(postId, commentText, user.token);
+
+    // Fetch the updated list of posts, including the new comments
+    const updatedPosts = await getPosts(user.token);
+    setPosts(updatedPosts);
+
+    // Close the comment modal
+    setShowCommentModals(prevModals => ({
+      ...prevModals,
+      [postId]: false
+    }));
+  } catch (error) {
+    console.error('Failed to add comment:', error);
+    // Handle the error by showing a modal or an error message
+    setShowModal(true);
+    setModalMessage(error.response?.data?.message || 'Failed to add comment.');
+  }
+};
+
+
+
+
+
+
 
   // Close modal
   const closeModal = () => {
@@ -143,16 +161,41 @@ const handleDislike = async (postId) => {
   };
 
   return (
+    
+    
     <div>
       {user ? (
         // User is logged in
       <>
-        <div className="welcome-logout-container">
-          <span className="welcome-message">Welcome, {user.email}!</span>
-          <button onClick={handleLogout} className="logout-button">Logout</button>
-        </div>
-        <PostsGrid posts={posts} onLike={handleLike} onDislike={handleDislike} />
-      </>
+        <header>
+          <div className="welcome-logout-container">
+            <span className="welcome-message">Welcome, {user.username}!</span>
+            <button onClick={handleLogout} className="logout-button">Logout</button>
+          </div>
+        </header>
+        <main className="main-content">
+          <PostsGrid
+              posts={posts}
+              onLike={handleLike}
+              onDislike={handleDislike}
+              onToggleCommentModal={handleToggleCommentModal}
+              commentsVisible={commentsVisible}
+              onToggleComments={handleToggleComments}
+            />
+          {/* Render CommentModal for each post if its state is true */}
+          {posts.map((post) => (
+            <CommentModal
+              key={post._id}
+              show={showCommentModals[post._id]}
+              onClose={() => handleToggleCommentModal(post._id)}
+              onSubmit={(comment) => handleAddComment(post._id, comment)}
+            />
+          ))}
+        </main>
+        <footer>
+            <p>© 2023 PiazzaApp</p>
+        </footer>
+      </> 
       ) : (
         // User is not logged in
         <LoginForm onLogin={handleLogin} />
