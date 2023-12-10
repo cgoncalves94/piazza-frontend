@@ -47,6 +47,14 @@ const dislikePost = async (postId, token) => {
 
 // Function to handle adding a comment to a post
 
+/**
+ * Adds a comment to a post.
+ * @param {string} postId - The ID of the post to add the comment to.
+ * @param {string} comment - The comment to add.
+ * @param {string} token - The authentication token.
+ * @returns {Promise} - A promise that resolves to the response data if successful.
+ * @throws {Error} - If an error occurs while adding the comment.
+ */
 const addComment = async (postId, comment, token) => {
     try {
         const response = await axios.post(`${API_URL}${postId}/comment`, { comment }, {
@@ -63,3 +71,5 @@ const addComment = async (postId, comment, token) => {
 
 
 export { getPosts, likePost, dislikePost, addComment, createPost, getPostsByTopic };
+// You need to provide more details about the missing relevant information.
+// Please specify what information is missing and where it should be added.

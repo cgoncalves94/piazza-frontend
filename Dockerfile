@@ -1,8 +1,7 @@
 # Stage 1 - the build process
-FROM node:latest AS build
+FROM node:lts-buster-slim AS build
 WORKDIR /app
-COPY package.json ./
-COPY package-lock.json ./
+COPY package.json package-lock.json ./
 RUN npm install
 COPY . ./
 RUN npm run build
