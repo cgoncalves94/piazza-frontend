@@ -28,7 +28,7 @@ const App = () => {
 
   // Check if user is already logged in
   useEffect(() => {
-    const loggedInUser = localStorage.getItem('user');
+    const loggedInUser = sessionStorage.getItem('user');
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
       setUser(foundUser);
@@ -52,7 +52,7 @@ const App = () => {
       const username = response['username']
       if (token) {
         const loggedInUser = { email, token, username };
-        localStorage.setItem('user', JSON.stringify(loggedInUser));
+        sessionStorage.setItem('user', JSON.stringify(loggedInUser));
         setUser(loggedInUser);
         setLoginError('');
         console.log('Login successful', loggedInUser);
@@ -63,12 +63,15 @@ const App = () => {
     }
   };
 
-  // Handle logout
   const handleLogout = () => {
     setUser(null);
-    localStorage.removeItem('user');
+    // Use sessionStorage instead of localStorage
+    sessionStorage.removeItem('user');
     setPosts([]);
+    // Optionally redirect to the login page or refresh the app state
+    // window.location.href = '/login'; // Uncomment if you want to redirect
   };
+  
 
   // This function will handle the common post-interaction logic for like and dislike
   const handlePostInteraction = async (interactionType, postId) => {
