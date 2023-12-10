@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 const CommentModal = ({ show, onClose, onSubmit }) => {
     const [comment, setComment] = useState('');
 
@@ -15,23 +16,24 @@ const CommentModal = ({ show, onClose, onSubmit }) => {
 
     return (
         <>
-            <div className="modal-overlay" onClick={onClose}></div> {/* Overlay to close modal when clicked outside */}
+            <div className="modal-overlay" onClick={onClose}></div>
             <div className="comment-modal">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="comment-modal-form">
                     <textarea
+                        className="comment-modal-textarea"
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
                         placeholder="Write a comment..."
                         required
                     />
-                    <button type="submit">Submit</button>
-                    <button onClick={onClose}>Cancel</button>
+                    <div className="comment-modal-buttons">
+                        <button type="submit" className="submit-button">Submit</button>
+                        <button type="button" onClick={onClose} className="cancel-button">Cancel</button>
+                    </div>
                 </form>
             </div>
         </>
     );
 };
-
-
 
 export default CommentModal;

@@ -2,13 +2,31 @@
 import axios from 'axios';
 
 // The API URL is different depending on the VM external IP address, make sure to change it
-const API_URL = 'http://104.154.138.6/api/posts/'; 
+const API_URL = 'http://35.222.59.206/api/posts/'; 
 
 const getPosts = async (token) => {
     const response = await axios.get(API_URL, {
         headers: { 'auth-token': token }
     });
     return response.data;
+};
+
+const getPostsByTopic = async (topic, token) => {
+    const response = await axios.get(`${API_URL}${topic}`, {
+        headers: { 'auth-token': token }
+    });
+    return response.data;
+};
+
+const createPost = async (postData, token) => {
+    try {
+        const response = await axios.post(API_URL, postData, {
+            headers: { 'auth-token': token }
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
 };
 
 // Function to handle liking a post
@@ -44,4 +62,4 @@ const addComment = async (postId, comment, token) => {
 
 
 
-export { getPosts, likePost, dislikePost, addComment  };
+export { getPosts, likePost, dislikePost, addComment, createPost, getPostsByTopic };

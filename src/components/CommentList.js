@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/CommentList.css';
 
 const CommentList = ({ comments }) => {
     // Log the comments array for debugging
@@ -18,8 +19,9 @@ const CommentList = ({ comments }) => {
                 }
                 return (
                     <div key={comment.id} className="comment">
+                        <span className="comment-author"> Commented by: {comment.user}</span>
                         <p className="comment-text">{comment.comment}</p>
-                        <span className="comment-author">{comment.user}</span>
+
                     </div>
                 );
             })}

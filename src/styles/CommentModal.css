@@ -9,13 +9,70 @@
     /* Add other styling as per your design preference */
 }
 
-/* Add overlay styles */
 .modal-overlay {
+    /* Styles for your overlay */
     position: fixed;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.comment-modal {
+    /* Styles for your modal */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    z-index: 1001;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.comment-modal-textarea {
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Dimmed background */
-    z-index: 999; /* Below the modal but above other content */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-height: 100px;
+    font-size: 16px;
+}
+
+.comment-modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.submit-button,
+.cancel-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.submit-button {
+    background-color: #5cb85c;
+    color: white;
+}
+
+.submit-button:hover {
+    background-color: #4cae4c;
+}
+
+.cancel-button {
+    background-color: #d9534f;
+    color: white;
+}
+
+.cancel-button:hover {
+    background-color: #c9302c;
 }
