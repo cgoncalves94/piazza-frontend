@@ -24,4 +24,4 @@ The Piazza frontend is a React-based user interface designed to interact seamles
 
 ## Credits
 
-Developed by Cesar Goncalves for the Cloud Computing Concepts module at BSc Computer Science at Birkbeck University.
+Developed by Cesar Goncalves for the Cloud Computing Concepts module at BSc Computer Science, Birkbeck University.
