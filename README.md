@@ -2,7 +2,7 @@
 
 ## Project Description
 
-The Piazza frontend is a React-based user interface designed to interact seamlessly with the Piazza backend. It provides a dynamic, responsive experience that allows users to engage with the Piazza platform, performing operations like posting messages, commenting, and reacting to content.
+The Piazza frontend is a React-based user interface designed to interact seamlessly with the Piazza backend. It provides a dynamic, responsive experience that allows users to engage with the Piazza platform, performing operations like posting messages, commenting, and reacting to content. This project was developed as part of the Cloud Computing Concepts assignment at Birkbeck University.
 
 ## Key Features
 
@@ -22,3 +22,6 @@ The Piazza frontend is a React-based user interface designed to interact seamles
 ![Post Grid](screenshots/frontend.png)
 *Grid layout displaying posts with interaction options.*
 
+## Credits
+
+Developed by Cesar Goncalves for the Cloud Computing Concepts module at BSc Computer Science at Birkbeck University.
