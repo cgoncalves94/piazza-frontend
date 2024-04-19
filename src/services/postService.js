@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 // The API URL is different depending on the VM external IP address, make sure to change it
-const API_URL = 'http://34.42.65.92/api/posts/'; 
+const API_URL = 'http://localhost:3000/api/posts/'; 
 
 // Function to handle getting all posts
 const getPosts = async (token) => {
