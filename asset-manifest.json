@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/piazza/static/css/main.d5c11546.css",
+    "main.js": "/piazza/static/js/main.075072a1.js",
+    "static/js/453.36f045c3.chunk.js": "/piazza/static/js/453.36f045c3.chunk.js",
+    "index.html": "/piazza/index.html",
+    "main.d5c11546.css.map": "/piazza/static/css/main.d5c11546.css.map",
+    "main.075072a1.js.map": "/piazza/static/js/main.075072a1.js.map",
+    "453.36f045c3.chunk.js.map": "/piazza/static/js/453.36f045c3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d5c11546.css",
+    "static/js/main.075072a1.js"
+  ]
+}
