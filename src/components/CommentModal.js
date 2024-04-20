@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import '../styles/CommentModal.css';
+
 
 const CommentModal = ({ show, onClose, onSubmit }) => {
     const [comment, setComment] = useState('');
@@ -15,8 +17,6 @@ const CommentModal = ({ show, onClose, onSubmit }) => {
     }
 
     return (
-        <>
-            <div className="modal-overlay" onClick={onClose}></div>
             <div className="comment-modal">
                 <form onSubmit={handleSubmit} className="comment-modal-form">
                     <textarea
@@ -32,7 +32,6 @@ const CommentModal = ({ show, onClose, onSubmit }) => {
                     </div>
                 </form>
             </div>
-        </>
     );
 };
 

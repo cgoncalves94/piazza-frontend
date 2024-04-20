@@ -6,7 +6,10 @@
     left: 50%;
     transform: translate(-50%, -50%); /* Center the modal */
     z-index: 1000; /* Ensure it's above other content */
-    /* Add other styling as per your design preference */
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .modal-overlay {
@@ -20,27 +23,15 @@
     z-index: 1000;
 }
 
-.comment-modal {
-    /* Styles for your modal */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    z-index: 1001;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
 .comment-modal-textarea {
     width: 100%;
-    padding: 10px;
+    padding: 100px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     min-height: 100px;
     font-size: 16px;
+    text-align: left;
 }
 
 .comment-modal-buttons {
@@ -57,22 +48,9 @@
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.2s;
+    background-color: #3f38c9;
 }
 
-.submit-button {
-    background-color: #5cb85c;
-    color: white;
-}
-
-.submit-button:hover {
-    background-color: #4cae4c;
-}
-
-.cancel-button {
-    background-color: #d9534f;
-    color: white;
-}
-
-.cancel-button:hover {
-    background-color: #c9302c;
+.submit-button:hover, .cancel-button:hover {
+    background-color: #1a2937;
 }

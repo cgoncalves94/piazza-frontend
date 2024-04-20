@@ -35,7 +35,7 @@
 .create-post-form button.create-post-submit-btn {
     width: 100%;
     padding: 10px 0;
-    background-color: #5cb85c;
+    background-color: #3f38c9;
     color: white;
     border: none;
     border-radius: 4px;
@@ -45,7 +45,7 @@
 }
 
 .create-post-form button.create-post-submit-btn:hover {
-    background-color: #4cae4c;
+    background-color: #161264;
 }
 
 .error-message {

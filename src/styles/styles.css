@@ -5,12 +5,23 @@ html, body {
     height: 100%;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+    
+
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    background: rgb(131,149,240);
+    background: linear-gradient(153deg, rgba(131,149,240,1) 23%, rgba(255,255,255,1) 84%);
 }
+
+
 
 /* Header Styles */
 header {
@@ -26,33 +37,38 @@ footer {
     color: white;
     text-align: center;
     padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
 }
 
 /* Main Content Styles */
 .main-content {
-    flex: 1; /* This will make the content expand to fill the available space */
-    padding: 20px; /* Adjust padding as needed */
+  flex: 1; /* This will make the content expand to fill the available space */
+  padding: 20px; /* Adjust padding as needed */
+  position: relative; /* Consider removing 'bottom: 30px;' if it's causing layout issues */
+  overflow: auto; /* Change to 'auto' if you want the scrollbar to appear only when needed */
+  bottom: 30px;
+  top: 5px;
 }
 
 
-/* Styles for the login container */
-.login-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    /* Keep the container width consistent regardless of content */
-    box-sizing: border-box;
+
+/* Updated styles for the login container */
+.login-wrapper {
+  width: 400px;
+  padding: 50px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.welcome-logout-container {
-    display: flex;
-    justify-content: space-between; /* This will push the children to the far ends */
-    align-items: center;
-    padding: 0 20px;
-}
 
 /* Styles for the welcome message */
 .welcome-message {
@@ -89,9 +105,9 @@ input[type="password"] {
     width: 100%;
     padding: 10px;
     border: none;
-    background-color: #5cb85c;
+    background-color: #3f38c9;
     color: white;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.2s;
@@ -99,7 +115,11 @@ input[type="password"] {
 
 /* Styles for the login button on hover */
 .login-button:hover {
-    background-color: #4cae4c;
+    background-color: #6963e8;
+}
+
+#createPost, #filterPost {
+  background-color: #3f38c9;
 }
 
 /* Styles for error messages */
@@ -125,10 +145,20 @@ input[type="password"] {
     background-color: #d9534f;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.2s;
+    margin: 10px 5px;
+}
+
+/* Styles for the welcome-logout container */
+.welcome-logout-container {
+  display: flex;
+  justify-content: space-between; /* This will push the logout button to the far right */
+  align-items: center;
+  padding: 0 20px; /* Add horizontal padding to the container */
+  width: 100%; /* Ensure the container spans the entire width of its parent */
 }
 
 
@@ -137,15 +167,7 @@ input[type="password"] {
     background-color: #c9302c;
 }
 
-/* Responsive Post Grid Container */
-.posts-grid-container {
-    max-width: 1200px;
-    margin: 0 auto; /* Center the container */
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Makes grid responsive */
-    grid-gap: 20px;
-    padding: 20px;
-}
+
 
 /* Comment Box Styles */
 .comment-box {
@@ -157,11 +179,14 @@ input[type="password"] {
 }
 
 
+.filter-by-topic select {
+  margin-right: 10px; 
+}
+
+
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
-    .login-container {
-        padding: 10px; /* Smaller padding for smaller screens */
-    }
+
 
     .welcome-logout-container {
         padding: 0 10px; /* Less padding on the sides */
@@ -180,13 +205,6 @@ input[type="password"] {
         padding: 8px; /* Smaller padding for the button */
         font-size: 0.9rem; /* Smaller font size for the button */
     }
-}
-
-@media (max-width: 480px) {
-    .login-container {
-        margin: 20px auto; /* Less vertical margin for very small screens */
-        min-width: 250px; /* Minimum width to maintain form structure */
-        padding: 10px; /* Adjusted padding for smaller container size */
-    }
 
 }
+

@@ -210,7 +210,7 @@ const handleFilterByTopic = async (topic) => {
           <main className="main-content">
 
             {/* Button to toggle the visibility of the CreatePostForm */}
-            <button onClick={() => setIsCreatePostFormVisible(!isCreatePostFormVisible)}>
+            <button id="createPost" onClick={() => setIsCreatePostFormVisible(!isCreatePostFormVisible)}>
               {isCreatePostFormVisible ? 'Hide Create Post' : 'Create Post'}
             </button>
 
@@ -227,7 +227,7 @@ const handleFilterByTopic = async (topic) => {
                 <option value="Sport">Sport</option>
                 <option value="Tech">Tech</option>
               </select>
-              <button onClick={() => handleFilterByTopic(selectedTopic)}>Filter Posts</button>
+              <button id="filterPost" onClick={() => handleFilterByTopic(selectedTopic)}>Filter Posts</button>
             </div>
 
             <PostsGrid
