@@ -2,7 +2,7 @@
 
 ## Project Description
 
-The Piazza frontend, developed using React, offers a user-friendly interface designed to interact seamlessly with the Piazza backend, forming an integral part of our full-stack application. This interface provides a dynamic and responsive user experience, enabling users to engage with the Piazza platform by posting messages, commenting, and reacting to content. Developed as part of the Cloud Computing Concepts assignment at Birkbeck University, this frontend complements our backend services, which are detailed in a separate repository at [https://github.com/cgoncalves94/piazza-backend].
+The Piazza front-end, developed using React, offers a user-friendly interface designed to interact seamlessly with the Piazza backend, forming an integral part of this full-stack application. This interface provides a dynamic and responsive user experience, enabling users to engage with the Piazza platform by posting messages, commenting, and reacting to content. Developed as part of the Cloud Computing Concepts assignment at Birkbeck University, this frontend complements the services detailed in the [backend repository](https://github.com/cgoncalves94/piazza-backend).
 
 ## Key Features
 
@@ -14,7 +14,7 @@ The Piazza frontend, developed using React, offers a user-friendly interface des
 ## Technologies and Libraries
 
 - **React:** A JavaScript library for building user interfaces.
-- **Axios:** Promise based HTTP client for the browser and node.js.
+- **Axios:** Promise-based HTTP client for the browser and node.js.
 
 
 ## Screenshots
